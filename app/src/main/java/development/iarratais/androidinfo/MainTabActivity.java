@@ -6,16 +6,21 @@
 
 package development.iarratais.androidinfo;
 
+import android.Manifest;
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import development.iarratais.fragment.DeviceFragment;
 import development.iarratais.fragment.NetworkFragment;
@@ -125,5 +130,24 @@ public class MainTabActivity extends AppCompatActivity {
             }
             return null;
         }
+    }
+
+    public void requestBluetoothPermission(){
+        Log.d(getClass().getSimpleName(), "Bluetooth permission not granted, requesting...");
+
+        final String[] permissions = new String[]{Manifest.permission.BLUETOOTH};
+        if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.BLUETOOTH)) {
+            ActivityCompat.requestPermissions(this, permissions, 1001);
+            return;
+        }
+
+        final Activity thisActivity = this;
+
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ActivityCompat.requestPermissions(thisActivity, permissions, 1001);
+            }
+        };
     }
 }

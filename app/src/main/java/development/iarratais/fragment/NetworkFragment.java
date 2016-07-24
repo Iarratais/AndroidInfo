@@ -7,16 +7,21 @@
 package development.iarratais.fragment;
 
 
+import android.Manifest;
+import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.SupplicantState;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.text.format.Formatter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -100,14 +105,21 @@ public class NetworkFragment extends Fragment {
         // Set the textview for bluetooth status.
         TextView bluetoothStatusTextView = (TextView) rootView.findViewById(R.id
                 .textview_network_information_bluetooth_status);
-        if(isBluetoothAvailable()){
-            String enabled = getString(R.string.enabled);
-            bluetoothStatusTextView.setText(getString(R.string
-                    .network_information_bluetooth_status, enabled));
+
+        int rc = ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.BLUETOOTH);
+        if (rc == PackageManager.PERMISSION_GRANTED) {
+            if(isBluetoothAvailable()){
+                String enabled = getString(R.string.enabled);
+                bluetoothStatusTextView.setText(getString(R.string
+                        .network_information_bluetooth_status, enabled));
+            } else {
+                String disabled = getString(R.string.disabled);
+                bluetoothStatusTextView.setText(getString(R.string
+                        .network_information_bluetooth_status, disabled));
+            }
         } else {
-            String disabled = getString(R.string.disabled);
-            bluetoothStatusTextView.setText(getString(R.string
-                    .network_information_bluetooth_status, disabled));
+            requestBluetoothPermission();
+            bluetoothStatusTextView.setText(R.string.error_permission_not_granted);
         }
     }
 
@@ -163,5 +175,25 @@ public class NetworkFragment extends Fragment {
     public static boolean isBluetoothAvailable() {
         final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         return (bluetoothAdapter != null && bluetoothAdapter.isEnabled());
+    }
+
+    public void requestBluetoothPermission(){
+        Log.d(getClass().getSimpleName(), "Bluetooth permission not granted, requesting...");
+
+        final String[] permissions = new String[]{Manifest.permission.BLUETOOTH};
+        if (!ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission
+                .BLUETOOTH)) {
+            ActivityCompat.requestPermissions(getActivity(), permissions, 1001);
+            return;
+        }
+
+        final Activity thisActivity = getActivity();
+
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ActivityCompat.requestPermissions(thisActivity, permissions, 1001);
+            }
+        };
     }
 }
