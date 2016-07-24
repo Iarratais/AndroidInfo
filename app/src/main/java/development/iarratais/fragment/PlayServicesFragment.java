@@ -4,40 +4,51 @@
  * karl.development@gmail.com
  */
 
-package development.iarratais.androidinfo;
+package development.iarratais.fragment;
+
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import development.iarratais.utils.DeviceInfoUtil;
+import development.iarratais.androidinfo.R;
 import development.iarratais.utils.GoogleServicesUtil;
 
-public class MainActivity extends AppCompatActivity {
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class PlayServicesFragment extends Fragment {
+
+    View rootView;
 
     GoogleServicesUtil googleServicesUtil;
 
     private static final String GOOGLE_SERVICES_PLAY_LINK = "https://play.google" +
             ".com/store/apps/details?id=com.google.android.gms&hl=en";
 
-    DeviceInfoUtil deviceInfoUtil;
+    public PlayServicesFragment() {
+        // Required empty public constructor
+    }
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        rootView = inflater.inflate(R.layout.fragment_play_services, container, false);
 
-        googleServicesUtil = new GoogleServicesUtil(getApplicationContext());
-        deviceInfoUtil = new DeviceInfoUtil(getApplicationContext());
+        googleServicesUtil = new GoogleServicesUtil(getActivity());
 
         injectGooglePlayInformation();
-        injectDeviceInformation();
+
+        return rootView;
     }
 
     /**
@@ -46,16 +57,22 @@ public class MainActivity extends AppCompatActivity {
      */
     private void injectGooglePlayInformation(){
         // Get the textviews.
-        TextView googlePlayStatus = (TextView) findViewById(R.id
+        TextView googlePlayStatus = (TextView) rootView.findViewById(R.id
                 .textview_google_play_services_status);
-        TextView googlePlayVersion = (TextView) findViewById(R.id
+        TextView googlePlayVersion = (TextView) rootView.findViewById(R.id
                 .textview_google_play_services_version_code);
-        TextView googlePlayVersionName = (TextView) findViewById(R.id
+        TextView googlePlayVersionName = (TextView) rootView.findViewById(R.id
                 .textview_google_play_services_version_name);
 
         // Get the buttons.
-        Button getFromGooglePlayStore = (Button) findViewById(R.id
+        Button getFromGooglePlayStore = (Button) rootView.findViewById(R.id
                 .button_get_google_play_services_google_play_store);
+        getFromGooglePlayStore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendUserToPlayStore();
+            }
+        });
 
         // Get the version code.
         int versionCode = googleServicesUtil.findGooglePlayServicesVersion();
@@ -113,43 +130,13 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * This sends the user to the play store to download the play services.
-     *
-     * @param v the view this method was called from.
      */
-    public void sendUserToPlayStore(View v){
+    private void sendUserToPlayStore(){
         try {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(GOOGLE_SERVICES_PLAY_LINK)));
         } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), R.string.error_check_your_network_settings, Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    /**
-     * This adds the information into the views regarding information about the device.
-     */
-    public void injectDeviceInformation(){
-        TextView manufacturerText = (TextView) findViewById(R.id
-                .textview_device_information_manufacturer);
-        TextView modelText = (TextView) findViewById(R.id.textview_device_information_model);
-        TextView androidVersionText = (TextView) findViewById(R.id
-                .textview_device_information_android_version);
-
-        if(manufacturerText != null){
-            String manufacturer = getString(R.string.device_information_manufacturer,
-                    deviceInfoUtil.getManufacturer());
-            manufacturerText.setText(manufacturer);
-        }
-
-        if(modelText != null){
-            String model = getString(R.string.device_information_device_model, deviceInfoUtil
-                    .getModel());
-            modelText.setText(model);
-        }
-
-        if(androidVersionText != null){
-            String androidVersion = getString(R.string.device_information_android_version,
-                    deviceInfoUtil.getAndroidVersion());
-            androidVersionText.setText(androidVersion);
+            Toast.makeText(getActivity(), R.string.error_check_your_network_settings, Toast.LENGTH_SHORT)
+                    .show();
         }
     }
 }

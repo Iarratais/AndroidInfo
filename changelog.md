@@ -5,3 +5,4 @@
 + development.iarratais.utils
 + DeviceInfoUtil
 + GoogleServicesUtil
+* Split app into fragments and a tabbed interface

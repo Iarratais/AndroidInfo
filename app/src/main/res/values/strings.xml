@@ -8,6 +8,7 @@
     <string name="app_name">AndroidInfo</string>
 
     <!-- Google Play Information -->
+    <string name="google_play_services_tab_title">Play services</string>
     <string name="google_play_services_title">Google Play Services</string>
     <string name="google_play_services_installed">Google Play services are installed</string>
     <string name="google_play_services_not_installed">Google Play services are not
@@ -17,11 +18,35 @@
     <string name="google_play_services_get_from_play_store">Get on the Play Store</string>
 
     <!-- Device Information -->
+    <string name="device_information_tab_title">Device</string>
     <string name="device_information_title">Device Information</string>
-    <string name="device_information_manufacturer"> Manufacturer: %1$s</string>
+    <string name="device_information_manufacturer">Manufacturer: %1$s</string>
     <string name="device_information_device_model">Device model: %1$s</string>
     <string name="device_information_android_version">Android version: %1$s</string>
 
+    <!-- Network Information -->
+    <string name="network_information_tab_title">Network</string>
+    <string name="network_information_title">Network Information</string>
+    <string name="network_information_wifi_status">WiFi: %1$s</string>
+    <string name="network_information_wifi_SSID">SSID: %1$s</string>
+    <string name="network_information_ip_address">IP address: %1$s</string>
+    <string name="network_information_mobile_data_status">Mobile data: %1$s</string>
+    <string name="network_information_bluetooth_status">Bluetooth: %1$s</string>
+
     <!-- Errors -->
     <string name="error_check_your_network_settings">Please check your network settings</string>
+    <string name="error_permission_not_granted">Access denied</string>
+
+    <!-- Common Strings -->
+    <string name="enabled">enabled</string>
+    <string name="disabled">disabled</string>
+    <string name="yes">@android:string/yes</string>
+    <string name="no">@android:string/no</string>
+
+
+    <string name="title_activity_main_tab">MainTabActivity</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
