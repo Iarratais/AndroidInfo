@@ -1,3 +1,27 @@
+<!--
+  ~ Copyright (c) 2016 Iarratais Development
+  ~
+  ~ karl.development@gmail.com
+  -->
+
 <resources>
     <string name="app_name">AndroidInfo</string>
+
+    <!-- Google Play Information -->
+    <string name="google_play_services_title">Google Play Services</string>
+    <string name="google_play_services_installed">Google Play services are installed</string>
+    <string name="google_play_services_not_installed">Google Play services are not
+        installed</string>
+    <string name="google_play_services_version_code">Version code: %1$s</string>
+    <string name="google_play_services_version_name">Version name: %1$s</string>
+    <string name="google_play_services_get_from_play_store">Get on the Play Store</string>
+
+    <!-- Device Information -->
+    <string name="device_information_title">Device Information</string>
+    <string name="device_information_manufacturer"> Manufacturer: %1$s</string>
+    <string name="device_information_device_model">Device model: %1$s</string>
+    <string name="device_information_android_version">Android version: %1$s</string>
+
+    <!-- Errors -->
+    <string name="error_check_your_network_settings">Please check your network settings</string>
 </resources>
