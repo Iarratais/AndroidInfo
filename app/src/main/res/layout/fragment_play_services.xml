@@ -65,5 +65,17 @@
             android:layout_marginRight="16dp"
             android:layout_marginTop="8dp"
             android:text="@string/google_play_services_get_from_play_store"/>
+
+        <Button
+            android:id="@+id/button_get_google_play_services_apk_mirror"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/google_play_services_get_from_apk_mirror"/>
     </LinearLayout>
 </ScrollView>

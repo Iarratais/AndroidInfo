@@ -33,6 +33,8 @@ public class PlayServicesFragment extends Fragment {
 
     private static final String GOOGLE_SERVICES_PLAY_LINK = "https://play.google" +
             ".com/store/apps/details?id=com.google.android.gms&hl=en";
+    private static final String APK_MIRROR_SEARCH_LINK = "http://www.apkmirror" +
+            ".com/?s=google+play+services&post_type=app_release&searchtype=apk";
 
     public PlayServicesFragment() {
         // Required empty public constructor
@@ -70,7 +72,15 @@ public class PlayServicesFragment extends Fragment {
         getFromGooglePlayStore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendUserToPlayStore();
+                sendUserToWebsite(GOOGLE_SERVICES_PLAY_LINK);
+            }
+        });
+        Button getFromAPKMirror = (Button) rootView.findViewById(R.id
+                .button_get_google_play_services_apk_mirror);
+        getFromAPKMirror.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendUserToWebsite(APK_MIRROR_SEARCH_LINK);
             }
         });
 
@@ -101,7 +111,11 @@ public class PlayServicesFragment extends Fragment {
                 getFromGooglePlayStore.setVisibility(View.GONE);
             }
 
-            if(googlePlayVersionName != null){
+            if (getFromAPKMirror != null){
+                getFromAPKMirror.setVisibility(View.GONE);
+            }
+
+            if (googlePlayVersionName != null){
                 String versionNameText = getString(R.string.google_play_services_version_name,
                         versionName);
                 googlePlayVersionName.setText(versionNameText);
@@ -125,15 +139,19 @@ public class PlayServicesFragment extends Fragment {
             if (getFromGooglePlayStore != null) {
                 getFromGooglePlayStore.setVisibility(View.VISIBLE);
             }
+
+            if (getFromAPKMirror != null){
+                getFromAPKMirror.setVisibility(View.VISIBLE);
+            }
         }
     }
 
     /**
      * This sends the user to the play store to download the play services.
      */
-    private void sendUserToPlayStore(){
+    private void sendUserToWebsite(String url){
         try {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(GOOGLE_SERVICES_PLAY_LINK)));
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
         } catch (Exception e) {
             Toast.makeText(getActivity(), R.string.error_check_your_network_settings, Toast.LENGTH_SHORT)
                     .show();
