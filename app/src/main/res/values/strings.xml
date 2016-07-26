@@ -37,6 +37,18 @@
     <string name="network_information_mobile_data_status">Mobile data: %1$s</string>
     <string name="network_information_bluetooth_status">Bluetooth: %1$s</string>
 
+    <!-- Battery Information -->
+    <string name="battery_information_tab_title">Battery</string>
+    <string name="battery_information_title">Battery Information</string>
+    <string name="battery_information_charging_status">Charging status: %1$s</string>
+    <string name="battery_information_charging">charging</string>
+    <string name="battery_information_not_charging">not charging</string>
+    <string name="battery_information_charging_method">Charging via %1$s</string>
+    <string name="battery_information_charging_via_usb">USB</string>
+    <string name="battery_information_charging_via_ac">AC</string>
+    <string name="battery_information_charging_via_wireless">wireless charger</string>
+    <string name="battery_information_charge_level">Charge level: %1$s</string>
+
     <!-- Errors -->
     <string name="error_check_your_network_settings">Please check your network settings</string>
     <string name="error_permission_not_granted">Access denied</string>

@@ -6,16 +6,23 @@
 
 package development.iarratais.androidinfo;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.FragmentManager;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
+import development.iarratais.fragment.BatteryFragment;
 import development.iarratais.fragment.DeviceFragment;
 import development.iarratais.fragment.NetworkFragment;
 import development.iarratais.fragment.PlayServicesFragment;
@@ -41,6 +48,11 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         if (navigationView != null) {
             navigationView.setNavigationItemSelectedListener(this);
+        }
+
+        int rc = ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE);
+        if (rc == PackageManager.PERMISSION_DENIED) {
+            requestReadPhoneStatePermission();
         }
 
         FragmentManager fm = getFragmentManager();
@@ -73,6 +85,8 @@ public class MainActivity extends AppCompatActivity
             fm.beginTransaction().replace(R.id.content_frame, new DeviceFragment()).commit();
         } else if(id == R.id.nav_network_information){
             fm.beginTransaction().replace(R.id.content_frame, new NetworkFragment()).commit();
+        } else if(id == R.id.nav_battery_information){
+            fm.beginTransaction().replace(R.id.content_frame, new BatteryFragment()).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -80,5 +94,28 @@ public class MainActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         }
         return true;
+    }
+
+    /**
+     * Request the READ_PHONE_STATE permission for access to the IMEI.
+     */
+    private void requestReadPhoneStatePermission() {
+        Log.d(getClass().getSimpleName(), "READ_PHONE_STATE permission not granted, requesting...");
+
+        final String[] permissions = new String[]{Manifest.permission.READ_PHONE_STATE};
+        if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission
+                .READ_PHONE_STATE)) {
+            ActivityCompat.requestPermissions(this, permissions, 1001);
+            return;
+        }
+
+        final Activity thisActivity = this;
+
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ActivityCompat.requestPermissions(thisActivity, permissions, 1001);
+            }
+        };
     }
 }

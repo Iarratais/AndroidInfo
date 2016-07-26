@@ -7,8 +7,11 @@
 package development.iarratais.fragment;
 
 
+import android.Manifest;
 import android.app.Fragment;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -93,17 +96,24 @@ public class DeviceFragment extends Fragment {
 
         // Set the text for the imei textview.
         if(imeiText != null) {
-            String imei = deviceInfoUtil.getIMEI();
-            String imeiNumber;
+            int rc = ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_PHONE_STATE);
+            if (rc == PackageManager.PERMISSION_GRANTED) {
+                String imei = deviceInfoUtil.getIMEI();
+                String imeiNumber;
 
-            if(imei != null) {
-                imeiNumber = getString(R.string.device_information_imei, deviceInfoUtil
-                        .getIMEI());
+                if(imei != null) {
+                    imeiNumber = getString(R.string.device_information_imei, deviceInfoUtil
+                            .getIMEI());
+                } else {
+                    imeiNumber = getString(R.string.device_information_imei, getString(R.string
+                            .not_supported));
+                }
+                imeiText.setText(imeiNumber);
             } else {
-                imeiNumber = getString(R.string.device_information_imei, getString(R.string
-                        .not_supported));
+                imeiText.setVisibility(View.GONE);
             }
-            imeiText.setText(imeiNumber);
         }
     }
+
+
 }

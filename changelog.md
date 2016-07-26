@@ -7,6 +7,7 @@
 + Check if mobile data is available on the device (targeted at tablets)
 + Ads in the play services and network tab
 + More information in the device tab including IMEI, root status and version name
++ Added BatteryFragment with layout
 
 #1.20160724
 + Added main interface
