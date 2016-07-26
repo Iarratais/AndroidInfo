@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import development.iarratais.androidinfo.R;
 import development.iarratais.utils.BatteryInfoUtil;
+import github.nisrulz.stackedhorizontalprogressbar.StackedHorizontalProgressBar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -82,6 +83,12 @@ public class BatteryFragment extends Fragment {
             String batteryLevel = getString(R.string.battery_information_charge_level,
                     batteryInfoUtil.getBatteryLevel());
             batteryChargeLevelTextView.setText(batteryLevel);
+
+            StackedHorizontalProgressBar stackedHorizontalProgressBar;
+            stackedHorizontalProgressBar = (StackedHorizontalProgressBar) rootView.findViewById(R.id
+                    .progress_bar_battery_level);
+            stackedHorizontalProgressBar.setMax(100);
+            stackedHorizontalProgressBar.setProgress(batteryInfoUtil.getBatteryLevel());
         }
     }
 }

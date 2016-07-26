@@ -31,17 +31,6 @@
         android:textAppearance="?android:attr/textAppearanceMedium"/>
 
     <TextView
-        android:id="@+id/textview_battery_information_charge_level"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/battery_information_charge_level"
-        android:textAppearance="?android:attr/textAppearanceMedium"/>
-
-    <TextView
         android:id="@+id/textview_battery_information_charge_method"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -52,13 +41,23 @@
         android:text="@string/battery_information_charging_method"
         android:textAppearance="?android:attr/textAppearanceMedium"/>
 
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/pie_chart_battery_information"
+    <TextView
+        android:id="@+id/textview_battery_information_charge_level"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/battery_information_charge_level"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+    <github.nisrulz.stackedhorizontalprogressbar.StackedHorizontalProgressBar
+        android:id="@+id/progress_bar_battery_level"
+        style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        />
-
-
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:progressDrawable="@drawable/stacked_horizontal_progress"/>
 
 </LinearLayout>
