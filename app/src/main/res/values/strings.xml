@@ -33,6 +33,7 @@
     <string name="network_information_wifi_SSID">Connected to %1$s</string>
     <string name="network_information_ip_address">IP address: %1$s</string>
     <string name="network_information_mobile_data_status">Mobile data: %1$s</string>
+    <string name="network_information_mobile_data_not_on_device">not available</string>
     <string name="network_information_bluetooth_status">Bluetooth: %1$s</string>
 
     <!-- Errors -->
@@ -44,4 +45,26 @@
     <string name="disabled">disabled</string>
     <string name="yes">@android:string/yes</string>
     <string name="no">@android:string/no</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Android Versions -->
+    <string name="android_version_cupcake">Cupcake</string>
+    <string name="android_version_donut">Donut</string>
+    <string name="android_version_eclair">Eclair</string>
+    <string name="android_version_froyo">Froyo</string>
+    <string name="android_version_gingerbread">Gingerbread</string>
+    <string name="android_version_honeycomb">Honeycomb</string>
+    <string name="android_version_ice_cream_sandwich">Ice Cream Sandwich</string>
+    <string name="android_version_jelly_bean">Jelly Bean</string>
+    <string name="android_version_kitkat">Kitkat</string>
+    <string name="android_version_lollipop">Lollipop</string>
+    <string name="android_version_marshmallow">Marshmallow</string>
+    <string name="android_version_nougat">Nougat</string>
 </resources>

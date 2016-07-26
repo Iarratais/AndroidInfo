@@ -6,25 +6,16 @@
 
 package development.iarratais.androidinfo;
 
-import android.Manifest;
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-
-import development.iarratais.fragment.DeviceFragment;
-import development.iarratais.fragment.NetworkFragment;
-import development.iarratais.fragment.PlayServicesFragment;
 
 public class MainTabActivity extends AppCompatActivity {
 
@@ -81,10 +72,7 @@ public class MainTabActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -101,15 +89,16 @@ public class MainTabActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            switch (position){
-                case 0:
-                    return new PlayServicesFragment();
-                case 1:
-                    return new DeviceFragment();
-                case 2:
-                    return new NetworkFragment();
-            }
-            return new PlayServicesFragment();
+//            switch (position){
+//                case 0:
+//                    return new PlayServicesFragment();
+//                case 1:
+//                    return new DeviceFragment();
+//                case 2:
+//                    return new NetworkFragment();
+//            }
+//            return new PlayServicesFragment();
+            return null;
         }
 
         @Override
@@ -130,24 +119,5 @@ public class MainTabActivity extends AppCompatActivity {
             }
             return null;
         }
-    }
-
-    public void requestBluetoothPermission(){
-        Log.d(getClass().getSimpleName(), "Bluetooth permission not granted, requesting...");
-
-        final String[] permissions = new String[]{Manifest.permission.BLUETOOTH};
-        if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.BLUETOOTH)) {
-            ActivityCompat.requestPermissions(this, permissions, 1001);
-            return;
-        }
-
-        final Activity thisActivity = this;
-
-        View.OnClickListener listener = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ActivityCompat.requestPermissions(thisActivity, permissions, 1001);
-            }
-        };
     }
 }

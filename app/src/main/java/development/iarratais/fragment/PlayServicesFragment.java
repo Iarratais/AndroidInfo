@@ -7,10 +7,10 @@
 package development.iarratais.fragment;
 
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +18,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import development.iarratais.androidinfo.R;
 import development.iarratais.utils.GoogleServicesUtil;
@@ -36,6 +40,8 @@ public class PlayServicesFragment extends Fragment {
     private static final String APK_MIRROR_SEARCH_LINK = "http://www.apkmirror" +
             ".com/?s=google+play+services&post_type=app_release&searchtype=apk";
 
+    AdView adView;
+
     public PlayServicesFragment() {
         // Required empty public constructor
     }
@@ -50,7 +56,52 @@ public class PlayServicesFragment extends Fragment {
 
         injectGooglePlayInformation();
 
+        adView = (AdView) rootView.findViewById(R.id.adview_google_play_services_main);
+        AdRequest adReq = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
+
+        if (adView != null) {
+            adView.setAdListener(new AdListener() {
+                @Override
+                public void onAdLoaded() {
+                    super.onAdLoaded();
+                }
+
+                @Override
+                public void onAdFailedToLoad(int errorCode) {
+                    super.onAdFailedToLoad(errorCode);
+                    adView.setVisibility(View.GONE);
+                }
+            });
+        }
+        if (adView != null) {
+            adView.loadAd(adReq);
+        }
+
         return rootView;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (adView != null) {
+            adView.pause();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (adView != null) {
+            adView.resume();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (adView != null) {
+            adView.destroy();
+        }
     }
 
     /**

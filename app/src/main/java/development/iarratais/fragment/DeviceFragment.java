@@ -7,8 +7,8 @@
 package development.iarratais.fragment;
 
 
+import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,18 +54,21 @@ public class DeviceFragment extends Fragment {
         TextView androidVersionText = (TextView) rootView.findViewById(R.id
                 .textview_device_information_android_version);
 
+        // Set the text for the manufacturer.
         if(manufacturerText != null){
             String manufacturer = getString(R.string.device_information_manufacturer,
                     deviceInfoUtil.getManufacturer());
             manufacturerText.setText(manufacturer);
         }
 
+        // Set the text for the model name.
         if(modelText != null){
             String model = getString(R.string.device_information_device_model, deviceInfoUtil
                     .getModel());
             modelText.setText(model);
         }
 
+        // Set the text for the android version.
         if(androidVersionText != null){
             String androidVersion = getString(R.string.device_information_android_version,
                     deviceInfoUtil.getAndroidVersion());

@@ -7,25 +7,24 @@
 package development.iarratais.fragment;
 
 
-import android.Manifest;
-import android.app.Activity;
+import android.app.Fragment;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.SupplicantState;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
 import android.text.format.Formatter;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import development.iarratais.androidinfo.R;
 import development.iarratais.utils.NetworkInfoUtil;
@@ -38,6 +37,8 @@ public class NetworkFragment extends Fragment {
     View rootView;
 
     NetworkInfoUtil networkInfoUtil;
+
+    AdView adView;
 
     public NetworkFragment() {
         // Required empty public constructor
@@ -53,7 +54,52 @@ public class NetworkFragment extends Fragment {
 
         injectNetworkInformation();
 
+        adView = (AdView) rootView.findViewById(R.id.adview_network_information_main);
+        AdRequest adReq = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).addTestDevice("901E79CF386C70EF8ED8FC97C04EF003").build();
+
+        if (adView != null) {
+            adView.setAdListener(new AdListener() {
+                @Override
+                public void onAdLoaded() {
+                    super.onAdLoaded();
+                }
+
+                @Override
+                public void onAdFailedToLoad(int errorCode) {
+                    super.onAdFailedToLoad(errorCode);
+                    adView.setVisibility(View.GONE);
+                }
+            });
+        }
+        if (adView != null) {
+            adView.loadAd(adReq);
+        }
+
         return rootView;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (adView != null) {
+            adView.pause();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (adView != null) {
+            adView.resume();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (adView != null) {
+            adView.destroy();
+        }
     }
 
     private void injectNetworkInformation(){
@@ -92,35 +138,36 @@ public class NetworkFragment extends Fragment {
         // Set the textview for mobile status
         TextView mobileDataStatusTextView = (TextView) rootView.findViewById(R.id
                 .textview_network_information_mobile_data_status);
-        if(isMobileDataEnabled()){
-            String enabled = getString(R.string.enabled);
-            mobileDataStatusTextView.setText(getString(R.string
-                    .network_information_mobile_data_status, enabled));
+        if(deviceHasMobileData()) {
+            if (isMobileDataEnabled()) {
+                String enabled = getString(R.string.enabled);
+                mobileDataStatusTextView.setText(getString(R.string
+                        .network_information_mobile_data_status, enabled));
+            } else {
+                String disabled = getString(R.string.disabled);
+                mobileDataStatusTextView.setText(getString(R.string
+                        .network_information_mobile_data_status, disabled));
+            }
         } else {
-            String disabled = getString(R.string.disabled);
-            mobileDataStatusTextView.setText(getString(R.string
-                    .network_information_mobile_data_status, disabled));
+            String notAvailable = getString(R.string.network_information_mobile_data_status,
+                    getString(R.string.network_information_mobile_data_not_on_device));
+            mobileDataStatusTextView.setText(notAvailable);
         }
 
         // Set the textview for bluetooth status.
         TextView bluetoothStatusTextView = (TextView) rootView.findViewById(R.id
                 .textview_network_information_bluetooth_status);
 
-        int rc = ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.BLUETOOTH);
-        if (rc == PackageManager.PERMISSION_GRANTED) {
-            if(isBluetoothAvailable()){
-                String enabled = getString(R.string.enabled);
-                bluetoothStatusTextView.setText(getString(R.string
+        if(isBluetoothAvailable()){
+            String enabled = getString(R.string.enabled);
+            bluetoothStatusTextView.setText(getString(R.string
                         .network_information_bluetooth_status, enabled));
-            } else {
-                String disabled = getString(R.string.disabled);
-                bluetoothStatusTextView.setText(getString(R.string
-                        .network_information_bluetooth_status, disabled));
-            }
         } else {
-            requestBluetoothPermission();
-            bluetoothStatusTextView.setText(R.string.error_permission_not_granted);
+            String disabled = getString(R.string.disabled);
+            bluetoothStatusTextView.setText(getString(R.string
+                    .network_information_bluetooth_status, disabled));
         }
+
     }
 
     /**
@@ -142,13 +189,26 @@ public class NetworkFragment extends Fragment {
      *
      * @return true if enabled.
      */
-    private boolean isMobileDataEnabled(){
+    private boolean isMobileDataEnabled() {
         ConnectivityManager conMan = (ConnectivityManager) getActivity().getSystemService(Context
                 .CONNECTIVITY_SERVICE);
 
-        NetworkInfo.State mobile = conMan.getNetworkInfo(0).getState();
+        NetworkInfo.State mobile;
 
-        return mobile == NetworkInfo.State.CONNECTED || mobile == NetworkInfo.State.CONNECTING;
+        if(deviceHasMobileData()) {
+            mobile = conMan.getNetworkInfo(0).getState();
+            return mobile == NetworkInfo.State.CONNECTED || mobile == NetworkInfo.State.CONNECTING;
+        }
+
+        return false;
+    }
+
+    private boolean deviceHasMobileData(){
+        ConnectivityManager conMan = (ConnectivityManager) getActivity().getSystemService(Context
+                .CONNECTIVITY_SERVICE);
+        NetworkInfo ni = conMan.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+
+        return ni != null;
     }
 
     private String getSSID(){
@@ -175,25 +235,5 @@ public class NetworkFragment extends Fragment {
     public static boolean isBluetoothAvailable() {
         final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         return (bluetoothAdapter != null && bluetoothAdapter.isEnabled());
-    }
-
-    public void requestBluetoothPermission(){
-        Log.d(getClass().getSimpleName(), "Bluetooth permission not granted, requesting...");
-
-        final String[] permissions = new String[]{Manifest.permission.BLUETOOTH};
-        if (!ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission
-                .BLUETOOTH)) {
-            ActivityCompat.requestPermissions(getActivity(), permissions, 1001);
-            return;
-        }
-
-        final Activity thisActivity = getActivity();
-
-        View.OnClickListener listener = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ActivityCompat.requestPermissions(thisActivity, permissions, 1001);
-            }
-        };
     }
 }
