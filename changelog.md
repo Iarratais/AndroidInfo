@@ -1,6 +1,6 @@
 ## My Device Information Changelog
 
-#2
+#2.20160724
 + Added APKMirror link in the play services tab
 + Added Ads Lite library
 * Enabled minify
@@ -8,6 +8,8 @@
 + Ads in the play services and network tab
 + More information in the device tab including IMEI, root status and version name
 + Added BatteryFragment with layout
++ Added MAC address retrieval
++ Added pull out drawer
 
 #1.20160724
 + Added main interface
