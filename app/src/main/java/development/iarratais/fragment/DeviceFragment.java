@@ -53,6 +53,10 @@ public class DeviceFragment extends Fragment {
                 .textview_device_information_model);
         TextView androidVersionText = (TextView) rootView.findViewById(R.id
                 .textview_device_information_android_version);
+        TextView androidIsRootedText = (TextView) rootView.findViewById(R.id
+                .textview_device_information_is_rooted);
+        TextView imeiText = (TextView) rootView.findViewById(R.id
+                .textview_device_information_device_imei);
 
         // Set the text for the manufacturer.
         if(manufacturerText != null){
@@ -71,8 +75,35 @@ public class DeviceFragment extends Fragment {
         // Set the text for the android version.
         if(androidVersionText != null){
             String androidVersion = getString(R.string.device_information_android_version,
-                    deviceInfoUtil.getAndroidVersion());
+                    deviceInfoUtil.getAndroidVersion(), deviceInfoUtil.getAndroidVersionName());
             androidVersionText.setText(androidVersion);
+        }
+
+        // Set the text for the rooted status.
+        if(androidIsRootedText != null){
+            String isRooted;
+            if(deviceInfoUtil.isRooted())
+                isRooted = getString(R.string.device_information_is_rooted, getString(R.string
+                        .yes));
+            else
+                isRooted = getString(R.string.device_information_is_rooted, getString(R.string.no));
+
+            androidIsRootedText.setText(isRooted);
+        }
+
+        // Set the text for the imei textview.
+        if(imeiText != null) {
+            String imei = deviceInfoUtil.getIMEI();
+            String imeiNumber;
+
+            if(imei != null) {
+                imeiNumber = getString(R.string.device_information_imei, deviceInfoUtil
+                        .getIMEI());
+            } else {
+                imeiNumber = getString(R.string.device_information_imei, getString(R.string
+                        .not_supported));
+            }
+            imeiText.setText(imeiNumber);
         }
     }
 }

@@ -150,7 +150,7 @@ public class NetworkFragment extends Fragment {
             }
         } else {
             String notAvailable = getString(R.string.network_information_mobile_data_status,
-                    getString(R.string.network_information_mobile_data_not_on_device));
+                    getString(R.string.not_supported));
             mobileDataStatusTextView.setText(notAvailable);
         }
 

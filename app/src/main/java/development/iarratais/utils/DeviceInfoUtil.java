@@ -108,6 +108,7 @@ public class DeviceInfoUtil {
     public String getIMEI(){
         TelephonyManager mngr = (TelephonyManager)context.getSystemService(Context
                 .TELEPHONY_SERVICE);
+
         return mngr.getDeviceId();
     }
 
@@ -116,7 +117,7 @@ public class DeviceInfoUtil {
      *
      * @return <code>true</code> if the device is rooted, <code>false</code> otherwise.
      */
-    public static boolean isRooted() {
+    public boolean isRooted() {
 
         // get from build info
         String buildTags = android.os.Build.TAGS;

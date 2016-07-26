@@ -24,7 +24,9 @@
     <string name="device_information_title">Device Information</string>
     <string name="device_information_manufacturer">Manufacturer: %1$s</string>
     <string name="device_information_device_model">Device model: %1$s</string>
-    <string name="device_information_android_version">Android version: %1$s</string>
+    <string name="device_information_android_version">Android version: %1$s, %2$s</string>
+    <string name="device_information_is_rooted">Device rooted: %1$s</string>
+    <string name="device_information_imei">IMEI: %1$s</string>
 
     <!-- Network Information -->
     <string name="network_information_tab_title">Network</string>
@@ -33,7 +35,6 @@
     <string name="network_information_wifi_SSID">Connected to %1$s</string>
     <string name="network_information_ip_address">IP address: %1$s</string>
     <string name="network_information_mobile_data_status">Mobile data: %1$s</string>
-    <string name="network_information_mobile_data_not_on_device">not available</string>
     <string name="network_information_bluetooth_status">Bluetooth: %1$s</string>
 
     <!-- Errors -->
@@ -43,8 +44,9 @@
     <!-- Common Strings -->
     <string name="enabled">enabled</string>
     <string name="disabled">disabled</string>
-    <string name="yes">@android:string/yes</string>
-    <string name="no">@android:string/no</string>
+    <string name="yes">yes</string>
+    <string name="no">no</string>
+    <string name="not_supported">not supported</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
