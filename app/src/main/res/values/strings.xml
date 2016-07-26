@@ -34,6 +34,7 @@
     <string name="network_information_wifi_status">WiFi: %1$s</string>
     <string name="network_information_wifi_SSID">Connected to %1$s</string>
     <string name="network_information_ip_address">IP address: %1$s</string>
+    <string name="network_information_mac_address">MAC address: %1$s</string>
     <string name="network_information_mobile_data_status">Mobile data: %1$s</string>
     <string name="network_information_bluetooth_status">Bluetooth: %1$s</string>
 
