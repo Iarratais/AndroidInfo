@@ -50,6 +50,16 @@
     <string name="battery_information_charging_via_wireless">wireless charger</string>
     <string name="battery_information_charge_level">Charge level: %1$s</string>
 
+    <!-- Display Information -->
+    <string name="display_information_tab_title">Display</string>
+    <string name="display_information_title">Display Information</string>
+    <string name="display_information_dpi">Screen density: %1$s</string>
+    <string name="display_information_orientation">Orientation: %1$s</string>
+    <string name="display_information_orientation_portrait">portrait</string>
+    <string name="display_information_orientation_landscape">landscape</string>
+    <string name="display_information_width">Width: %1$s px</string>
+    <string name="display_information_height">Height: %1$s px</string>
+
     <!-- Errors -->
     <string name="error_check_your_network_settings">Please check your network settings</string>
     <string name="error_permission_not_granted">Access denied</string>

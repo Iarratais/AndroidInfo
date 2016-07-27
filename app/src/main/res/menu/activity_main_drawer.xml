@@ -20,5 +20,8 @@
         <item
             android:id="@+id/nav_battery_information"
             android:title="@string/battery_information_title" />
+        <item
+            android:id="@+id/nav_display_information"
+            android:title="@string/display_information_title" />
     </group>
 </menu>

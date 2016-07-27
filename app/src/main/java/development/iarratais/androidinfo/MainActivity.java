@@ -24,6 +24,7 @@ import android.view.View;
 
 import development.iarratais.fragment.BatteryFragment;
 import development.iarratais.fragment.DeviceFragment;
+import development.iarratais.fragment.DisplayFragment;
 import development.iarratais.fragment.NetworkFragment;
 import development.iarratais.fragment.PlayServicesFragment;
 
@@ -87,6 +88,8 @@ public class MainActivity extends AppCompatActivity
             fm.beginTransaction().replace(R.id.content_frame, new NetworkFragment()).commit();
         } else if(id == R.id.nav_battery_information){
             fm.beginTransaction().replace(R.id.content_frame, new BatteryFragment()).commit();
+        } else if(id == R.id.nav_display_information){
+            fm.beginTransaction().replace(R.id.content_frame, new DisplayFragment()).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
