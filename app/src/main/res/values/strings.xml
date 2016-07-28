@@ -60,6 +60,13 @@
     <string name="display_information_width">Width: %1$s px</string>
     <string name="display_information_height">Height: %1$s px</string>
 
+    <!-- SIM Information -->
+    <string name="sim_information_tab_title">SIM</string>
+    <string name="sim_information_title">SIM Information</string>
+    <string name="sim_information_phone_number">Phone Number: %1$s</string>
+    <string name="sim_information_network">Network: %1$s</string>
+    <string name="sim_information_network_country">Network Country: %1$s</string>
+
     <!-- Errors -->
     <string name="error_check_your_network_settings">Please check your network settings</string>
     <string name="error_permission_not_granted">Access denied</string>

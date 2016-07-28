@@ -27,6 +27,7 @@ import development.iarratais.fragment.DeviceFragment;
 import development.iarratais.fragment.DisplayFragment;
 import development.iarratais.fragment.NetworkFragment;
 import development.iarratais.fragment.PlayServicesFragment;
+import development.iarratais.fragment.SIMFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity
 
         int rc = ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE);
         if (rc == PackageManager.PERMISSION_DENIED) {
-            requestReadPhoneStatePermission();
+            requestPermissions();
         }
 
         FragmentManager fm = getFragmentManager();
@@ -80,7 +81,7 @@ public class MainActivity extends AppCompatActivity
 
         FragmentManager fm = getFragmentManager();
 
-        if (id == R.id.nav_play_servies) {
+        if (id == R.id.nav_play_services) {
             fm.beginTransaction().replace(R.id.content_frame, new PlayServicesFragment()).commit();
         } else if (id == R.id.nav_device_information){
             fm.beginTransaction().replace(R.id.content_frame, new DeviceFragment()).commit();
@@ -90,6 +91,8 @@ public class MainActivity extends AppCompatActivity
             fm.beginTransaction().replace(R.id.content_frame, new BatteryFragment()).commit();
         } else if(id == R.id.nav_display_information){
             fm.beginTransaction().replace(R.id.content_frame, new DisplayFragment()).commit();
+        } else if(id == R.id.nav_sim_information){
+            fm.beginTransaction().replace(R.id.content_frame, new SIMFragment()).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -100,10 +103,12 @@ public class MainActivity extends AppCompatActivity
     }
 
     /**
+     * Request the permissions that the app needs in order to function.
+     *
      * Request the READ_PHONE_STATE permission for access to the IMEI.
      */
-    private void requestReadPhoneStatePermission() {
-        Log.d(getClass().getSimpleName(), "READ_PHONE_STATE permission not granted, requesting...");
+    private void requestPermissions() {
+        Log.d(getClass().getSimpleName(), "Requesting permissions...");
 
         final String[] permissions = new String[]{Manifest.permission.READ_PHONE_STATE};
         if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission

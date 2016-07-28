@@ -10,6 +10,7 @@
 + Added BatteryFragment with layout
 + Added MAC address retrieval
 + Added pull out drawer
++ Display information
 
 #1.20160724
 + Added main interface

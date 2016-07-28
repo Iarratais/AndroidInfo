@@ -8,18 +8,26 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
+        <!-- ad -->
         <item
-            android:id="@+id/nav_play_servies"
+            android:id="@+id/nav_play_services"
             android:title="@string/google_play_services_title"/>
         <item
             android:id="@+id/nav_device_information"
             android:title="@string/device_information_title"/>
+
+        <!-- ad -->
         <item
             android:id="@+id/nav_network_information"
             android:title="@string/network_information_title"/>
         <item
             android:id="@+id/nav_battery_information"
             android:title="@string/battery_information_title" />
+
+        <!-- ad -->
+        <item
+            android:id="@+id/nav_sim_information"
+            android:title="@string/sim_information_title" />
         <item
             android:id="@+id/nav_display_information"
             android:title="@string/display_information_title" />

@@ -7,7 +7,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/textview_network_information_title"
@@ -96,7 +96,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="100dp"
+        android:layout_margin="10dp"
         ads:adSize="BANNER"
         ads:adUnitId="ca-app-pub-9529089167941341/7393844034">
 

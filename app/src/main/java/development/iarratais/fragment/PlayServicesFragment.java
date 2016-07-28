@@ -111,11 +111,11 @@ public class PlayServicesFragment extends Fragment {
     private void injectGooglePlayInformation(){
         // Get the textviews.
         TextView googlePlayStatus = (TextView) rootView.findViewById(R.id
-                .textview_google_play_services_status);
+                .textview_sim_information_phone_number);
         TextView googlePlayVersion = (TextView) rootView.findViewById(R.id
-                .textview_google_play_services_version_code);
+                .textview_sim_information_network_operator);
         TextView googlePlayVersionName = (TextView) rootView.findViewById(R.id
-                .textview_google_play_services_version_name);
+                .textview_sim_information_network_country);
 
         // Get the buttons.
         Button getFromGooglePlayStore = (Button) rootView.findViewById(R.id
