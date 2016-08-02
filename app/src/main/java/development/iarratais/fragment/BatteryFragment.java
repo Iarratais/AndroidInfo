@@ -57,7 +57,7 @@ public class BatteryFragment extends Fragment {
                 .textview_battery_information_charge_method);
 
         if(batteryChargingTextView != null){
-            if(batteryInfoUtil.isConnected().equals(getString(R.string.battery_information_not_charging))){
+            if(batteryInfoUtil.isDeviceConnectedToCharger().equals(getString(R.string.battery_information_not_charging))){
                 // Hide the charging via as the device is not charging.
                 batteryChargingViaTextView.setVisibility(View.GONE);
 
@@ -69,7 +69,7 @@ public class BatteryFragment extends Fragment {
                 batteryChargingViaTextView.setVisibility(View.VISIBLE);
 
                 String chargingVia = getString(R.string.battery_information_charging_method,
-                        batteryInfoUtil.isConnected());
+                        batteryInfoUtil.isDeviceConnectedToCharger());
                 batteryChargingViaTextView.setText(chargingVia);
 
                 // Set the battery charging to charging.
@@ -81,14 +81,14 @@ public class BatteryFragment extends Fragment {
 
         if(batteryChargeLevelTextView != null){
             String batteryLevel = getString(R.string.battery_information_charge_level,
-                    batteryInfoUtil.getBatteryLevel());
+                    batteryInfoUtil.getDeviceBatteryLevel());
             batteryChargeLevelTextView.setText(batteryLevel);
 
             StackedHorizontalProgressBar stackedHorizontalProgressBar;
             stackedHorizontalProgressBar = (StackedHorizontalProgressBar) rootView.findViewById(R.id
                     .progress_bar_battery_level);
             stackedHorizontalProgressBar.setMax(100);
-            stackedHorizontalProgressBar.setProgress(batteryInfoUtil.getBatteryLevel());
+            stackedHorizontalProgressBar.setProgress(batteryInfoUtil.getDeviceBatteryLevel());
         }
     }
 }

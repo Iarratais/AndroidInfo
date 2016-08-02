@@ -114,7 +114,7 @@ public class NetworkFragment extends Fragment {
 
         if(networkInfoUtil.isWiFiEnabled()){
             String SSIDtext = getString(R.string.network_information_wifi_SSID, networkInfoUtil
-                    .getSSID());
+                    .getConnectedSSID());
             SSIDTextView.setText(SSIDtext);
             SSIDTextView.setVisibility(View.VISIBLE);
         } else {
@@ -126,7 +126,7 @@ public class NetworkFragment extends Fragment {
                 .textview_network_information_ip_address);
 
         String ipadresstext = getString(R.string.network_information_ip_address, networkInfoUtil
-                .getIPAddress());
+                .getConnectedIPAddress());
         IPAdressTextView.setText(ipadresstext);
 
         // Set the MAC Address.
@@ -134,13 +134,13 @@ public class NetworkFragment extends Fragment {
                 .textview_network_information_mac_address);
 
         String macAddressText = getString(R.string.network_information_mac_address,
-                networkInfoUtil.getMACAddress());
+                networkInfoUtil.getConnectedMACAddress());
         MACAddressTextView.setText(macAddressText);
 
         // Set the textview for mobile status
         TextView mobileDataStatusTextView = (TextView) rootView.findViewById(R.id
                 .textview_network_information_mobile_data_status);
-        if(networkInfoUtil.deviceHasMobileData()) {
+        if(networkInfoUtil.doesDeviceHaveMobileDataOption()) {
             if (networkInfoUtil.isMobileDataEnabled()) {
                 String enabled = getString(R.string.enabled);
                 mobileDataStatusTextView.setText(getString(R.string
@@ -160,7 +160,7 @@ public class NetworkFragment extends Fragment {
         TextView bluetoothStatusTextView = (TextView) rootView.findViewById(R.id
                 .textview_network_information_bluetooth_status);
 
-        if(networkInfoUtil.isBluetoothAvailable()){
+        if(networkInfoUtil.doesDeviceHaveBluetoothOption()){
             String enabled = getString(R.string.enabled);
             bluetoothStatusTextView.setText(getString(R.string
                         .network_information_bluetooth_status, enabled));

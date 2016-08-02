@@ -36,10 +36,20 @@ public class SIMInfoUtil {
         return telephonyManager.getLine1Number();
     }
 
+    /**
+     * Get the network operator that the device is connected to.
+     *
+     * @return string containing the network operator that the device is connected to.
+     */
     public String getNetworkOperator(){
         return telephonyManager.getNetworkOperator();
     }
 
+    /**
+     * Get the network operator country that the device is connected to.
+     *
+     * @return string containing the network operator country.
+     */
     public String getNetworkOperatorCountry(){
         return telephonyManager.getNetworkCountryIso();
     }

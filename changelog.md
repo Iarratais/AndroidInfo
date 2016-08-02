@@ -1,5 +1,10 @@
 ## My Device Information Changelog
 
+#3
++ Display information
++ Added SIM Information tab
++ Added SIMInfoUtil
+
 #2.20160724
 + Added APKMirror link in the play services tab
 + Added Ads Lite library
@@ -10,7 +15,6 @@
 + Added BatteryFragment with layout
 + Added MAC address retrieval
 + Added pull out drawer
-+ Display information
 
 #1.20160724
 + Added main interface

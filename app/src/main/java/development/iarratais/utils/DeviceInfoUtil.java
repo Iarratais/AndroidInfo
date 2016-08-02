@@ -153,27 +153,33 @@ public class DeviceInfoUtil {
         return executedSuccesfully;
     }
 
-
-    private static String capitalize(String str) {
-        if (TextUtils.isEmpty(str)) {
-            return str;
+    /**
+     * Capitalise the string that is passed into the method.
+     *
+     * @param originalString string to be capitalised.
+     *
+     * @return capitalised string.
+     */
+    private static String capitalize(String originalString) {
+        if (TextUtils.isEmpty(originalString)) {
+            return originalString;
         }
-        char[] arr = str.toCharArray();
+        char[] arr = originalString.toCharArray();
         boolean capitalizeNext = true;
 
-        StringBuilder phrase = new StringBuilder();
+        StringBuilder captilisedString = new StringBuilder();
         for (char c : arr) {
             if (capitalizeNext && Character.isLetter(c)) {
-                phrase.append(Character.toUpperCase(c));
+                captilisedString.append(Character.toUpperCase(c));
                 capitalizeNext = false;
                 continue;
             } else if (Character.isWhitespace(c)) {
                 capitalizeNext = true;
             }
-            phrase.append(c);
+            captilisedString.append(c);
         }
 
-        return phrase.toString();
+        return captilisedString.toString();
     }
 
 }

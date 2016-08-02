@@ -24,8 +24,16 @@ public class NetworkInfoUtil {
 
     Context context;
 
+    ConnectivityManager conMan;
+
+    WifiManager wifiManager;
+
     public NetworkInfoUtil(Context context){
         this.context = context;
+
+        conMan = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        wifiManager = (WifiManager)context.getSystemService(Context.WIFI_SERVICE);
     }
 
     /**
@@ -34,10 +42,6 @@ public class NetworkInfoUtil {
      * @return true if enabled.
      */
     public boolean isWiFiEnabled(){
-        ConnectivityManager conMan = (ConnectivityManager) context.getSystemService
-                (Context
-                .CONNECTIVITY_SERVICE);
-
         NetworkInfo.State wifi = conMan.getNetworkInfo(1).getState();
 
         return wifi == NetworkInfo.State.CONNECTED || wifi == NetworkInfo.State.CONNECTING;
@@ -46,15 +50,12 @@ public class NetworkInfoUtil {
     /**
      * Check if the mobile data is enabled.
      *
-     * @return true if enabled.
+     * @return true if enabled, false if disabled.
      */
     public boolean isMobileDataEnabled() {
-        ConnectivityManager conMan = (ConnectivityManager) context.getSystemService(Context
-                .CONNECTIVITY_SERVICE);
-
         NetworkInfo.State mobile;
 
-        if(deviceHasMobileData()) {
+        if(doesDeviceHaveMobileDataOption()) {
             mobile = conMan.getNetworkInfo(0).getState();
             return mobile == NetworkInfo.State.CONNECTED || mobile == NetworkInfo.State.CONNECTING;
         }
@@ -62,16 +63,23 @@ public class NetworkInfoUtil {
         return false;
     }
 
-    public boolean deviceHasMobileData(){
-        ConnectivityManager conMan = (ConnectivityManager) context.getSystemService(Context
-                .CONNECTIVITY_SERVICE);
+    /**
+     * Check if the device has the option to connect to a mobile network or not.
+     *
+     * @return true if it is able to connect, false otherwise.
+     */
+    public boolean doesDeviceHaveMobileDataOption(){
         NetworkInfo ni = conMan.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
 
         return ni != null;
     }
 
-    public String getSSID(){
-        WifiManager wifiManager = (WifiManager)context.getSystemService(Context.WIFI_SERVICE);
+    /**
+     * Get the SSID of the WiFi network that the device is connected to.
+     *
+     * @return string containing the SSID that the device is connected to.
+     */
+    public String getConnectedSSID(){
         WifiInfo wifiInfo;
 
         wifiInfo = wifiManager.getConnectionInfo();
@@ -81,22 +89,30 @@ public class NetworkInfoUtil {
         return "None";
     }
 
-    public String getIPAddress(){
-        WifiManager wm = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-        return Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
-    }
-
-    public String getMACAddress(){
-        WifiManager manager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-        return manager.getConnectionInfo().getMacAddress();
+    /**
+     * Get the IP address of the device.
+     *
+     * @return string containing the IP address.
+     */
+    public String getConnectedIPAddress(){
+        return Formatter.formatIpAddress(wifiManager.getConnectionInfo().getIpAddress());
     }
 
     /**
-     * Check for Bluetooth.
+     * Get the MAC address of the device.
+     *
+     * @return string containing the MAC address.
+     */
+    public String getConnectedMACAddress(){
+        return wifiManager.getConnectionInfo().getMacAddress();
+    }
+
+    /**
+     * Check if the device has a bluetooth option.
      *
      * @return True if Bluetooth is available.
      */
-    public boolean isBluetoothAvailable() {
+    public boolean doesDeviceHaveBluetoothOption() {
         final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         return (bluetoothAdapter != null && bluetoothAdapter.isEnabled());
     }

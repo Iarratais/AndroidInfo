@@ -26,7 +26,12 @@ public class BatteryInfoUtil {
         this.context = context;
     }
 
-    public int getBatteryLevel() {
+    /**
+     * Get the battery level of the device.
+     *
+     * @return int containing the battery level of the device.
+     */
+    public int getDeviceBatteryLevel() {
         Intent batteryIntent = context.registerReceiver(null, new IntentFilter(Intent
                 .ACTION_BATTERY_CHANGED));
         int level = 0;
@@ -38,7 +43,7 @@ public class BatteryInfoUtil {
             scale = batteryIntent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
         }
 
-        // Error checking that probably isn't needed but I added just in case.
+        // Error checking.
         if(level == -1 || scale == -1) {
             return (int)50.0f;
         }
@@ -53,7 +58,7 @@ public class BatteryInfoUtil {
      *
      * @return string to which the device is connected.
      */
-    public String isConnected(){
+    public String isDeviceConnectedToCharger(){
         Intent intent = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
 
         int plugged = 1000;
@@ -62,6 +67,7 @@ public class BatteryInfoUtil {
             plugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
         }
 
+        // Check the method that the device is connected.
         if (plugged == BatteryManager.BATTERY_PLUGGED_AC){
             return context.getString(R.string.battery_information_charging_via_ac);
         } else if (plugged == BatteryManager.BATTERY_PLUGGED_USB){
