@@ -33,27 +33,21 @@ public class DeviceInfoUtil {
      *
      * @return the manufacturer of the device.
      */
-    public String getManufacturer(){
-        return capitalize(Build.MANUFACTURER);
-    }
+    public String getManufacturer(){ return capitalize(Build.MANUFACTURER); }
 
     /**
      * Get the model name for the device.
      *
      * @return the model name of the device.
      */
-    public String getModel(){
-        return capitalize(Build.MODEL);
-    }
+    public String getModel(){ return capitalize(Build.MODEL); }
 
     /**
      * Get the android version that the device is running.
      *
      * @return string with the android version that the device is running.
      */
-    public String getAndroidVersion(){
-        return Build.VERSION.RELEASE;
-    }
+    public String getAndroidVersion(){ return Build.VERSION.RELEASE; }
 
     /**
      * Get the android name of the version on the device.
@@ -87,7 +81,7 @@ public class DeviceInfoUtil {
             case Build.VERSION_CODES.M:
                 return context.getString(R.string.android_version_marshmallow);
             default:
-                return context.getString(R.string.android_version_nougat);
+                return context.getString(R.string.android_version_nougat);      // Version code needs to be checked when nuugat comes out.
         }
     }
 
@@ -96,9 +90,7 @@ public class DeviceInfoUtil {
      *
      * @return int number of SDK version.
      */
-    public int getSDKVersion(){
-        return Build.VERSION.SDK_INT;
-    }
+    public int getSDKVersion(){ return Build.VERSION.SDK_INT; }
 
     /**
      * Get the IMEI of the device.

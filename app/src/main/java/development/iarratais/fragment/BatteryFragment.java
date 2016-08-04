@@ -46,7 +46,7 @@ public class BatteryFragment extends Fragment {
     }
 
     /**
-     * Inject the information into the fragmeent view.
+     * Inject the information into the fragment view.
      */
     private void injectInformation(){
         TextView batteryChargingTextView = (TextView) rootView.findViewById(R.id

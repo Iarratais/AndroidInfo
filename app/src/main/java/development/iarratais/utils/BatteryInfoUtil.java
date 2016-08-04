@@ -16,7 +16,8 @@ import development.iarratais.androidinfo.R;
 /**
  * Created by KarlJones on 26/07/16.
  *
- * Determine information about the devices battery
+ * Determine information about the devices battery, including the battery level, if the device is
+ * charging or not, and if it is, how it is charging.
  */
 public class BatteryInfoUtil {
 

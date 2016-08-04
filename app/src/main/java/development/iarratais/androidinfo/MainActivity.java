@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity
             navigationView.setNavigationItemSelectedListener(this);
         }
 
+        // Check if the correct permissions have been given to the application.
         int rc = ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE);
         if (rc == PackageManager.PERMISSION_DENIED) {
             requestPermissions();
@@ -105,7 +106,7 @@ public class MainActivity extends AppCompatActivity
     /**
      * Request the permissions that the app needs in order to function.
      *
-     * Request the READ_PHONE_STATE permission for access to the IMEI.
+     * Request the READ_PHONE_STATE permission for access to the IMEI of the device.
      */
     private void requestPermissions() {
         Log.d(getClass().getSimpleName(), "Requesting permissions...");

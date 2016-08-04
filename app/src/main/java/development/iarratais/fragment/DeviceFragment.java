@@ -50,40 +50,40 @@ public class DeviceFragment extends Fragment {
      * This adds the information into the views regarding information about the device.
      */
     public void injectDeviceInformation(){
-        TextView manufacturerText = (TextView) rootView.findViewById(R.id
+        TextView manufacturerTextView = (TextView) rootView.findViewById(R.id
                 .textview_device_information_manufacturer);
-        TextView modelText = (TextView) rootView.findViewById(R.id
+        TextView modelTextView = (TextView) rootView.findViewById(R.id
                 .textview_device_information_model);
-        TextView androidVersionText = (TextView) rootView.findViewById(R.id
+        TextView androidVersionTextView = (TextView) rootView.findViewById(R.id
                 .textview_device_information_android_version);
-        TextView androidIsRootedText = (TextView) rootView.findViewById(R.id
+        TextView isRootedTextView = (TextView) rootView.findViewById(R.id
                 .textview_device_information_is_rooted);
-        TextView imeiText = (TextView) rootView.findViewById(R.id
+        TextView IMEITextView = (TextView) rootView.findViewById(R.id
                 .textview_device_information_device_imei);
 
         // Set the text for the manufacturer.
-        if(manufacturerText != null){
+        if(manufacturerTextView != null){
             String manufacturer = getString(R.string.device_information_manufacturer,
                     deviceInfoUtil.getManufacturer());
-            manufacturerText.setText(manufacturer);
+            manufacturerTextView.setText(manufacturer);
         }
 
         // Set the text for the model name.
-        if(modelText != null){
+        if(modelTextView != null){
             String model = getString(R.string.device_information_device_model, deviceInfoUtil
                     .getModel());
-            modelText.setText(model);
+            modelTextView.setText(model);
         }
 
         // Set the text for the android version.
-        if(androidVersionText != null){
+        if(androidVersionTextView != null){
             String androidVersion = getString(R.string.device_information_android_version,
                     deviceInfoUtil.getAndroidVersion(), deviceInfoUtil.getAndroidVersionName());
-            androidVersionText.setText(androidVersion);
+            androidVersionTextView.setText(androidVersion);
         }
 
-        // Set the text for the rooted status.
-        if(androidIsRootedText != null){
+        // Set the text for the rooted status of the device.
+        if(isRootedTextView != null){
             String isRooted;
             if(deviceInfoUtil.isRooted())
                 isRooted = getString(R.string.device_information_is_rooted, getString(R.string
@@ -91,26 +91,25 @@ public class DeviceFragment extends Fragment {
             else
                 isRooted = getString(R.string.device_information_is_rooted, getString(R.string.no));
 
-            androidIsRootedText.setText(isRooted);
+            isRootedTextView.setText(isRooted);
         }
 
-        // Set the text for the imei textview.
-        if(imeiText != null) {
+        // Set the text for the imei of the device.
+        if(IMEITextView != null) {
             int rc = ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_PHONE_STATE);
             if (rc == PackageManager.PERMISSION_GRANTED) {
-                String imei = deviceInfoUtil.getIMEI();
                 String imeiNumber;
 
-                if(imei != null) {
+                if(deviceInfoUtil.getIMEI() != null) {
                     imeiNumber = getString(R.string.device_information_imei, deviceInfoUtil
                             .getIMEI());
                 } else {
                     imeiNumber = getString(R.string.device_information_imei, getString(R.string
                             .not_supported));
                 }
-                imeiText.setText(imeiNumber);
+                IMEITextView.setText(imeiNumber);
             } else {
-                imeiText.setVisibility(View.GONE);
+                IMEITextView.setVisibility(View.GONE);
             }
         }
     }
